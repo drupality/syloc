@@ -1,0 +1,35 @@
+Syloc\Bundle\GooglePlacesBundle\Entity\Place:
+  type: entity
+  table: google_places
+  id:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      nullable: false
+    lat:
+      type: decimal(18)
+      scale: 12
+      precision: 18
+      nullable: false
+    lng:
+      type: decimal(18)
+      scale: 12
+      precision: 18
+      nullable: false
+  manyToMany:
+    types:
+      targetEntity: PlaceType
+      joinTable:
+        name: places_types
+        joinColumns:
+          place_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          type_id:
+            referencedColumnName: id
+  lifecycleCallbacks: {  }

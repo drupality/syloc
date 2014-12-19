@@ -1,0 +1,14 @@
+Syloc\Bundle\GooglePlacesBundle\Entity\PlaceType:
+  type: entity
+  table: google_place_types
+  id:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  fields:
+    type:
+      type: string
+      length: 255
+  lifecycleCallbacks: {  }

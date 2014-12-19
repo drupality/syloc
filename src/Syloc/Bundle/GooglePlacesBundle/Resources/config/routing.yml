@@ -1,0 +1,3 @@
+google_places_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: GooglePlacesBundle:Default:index }
