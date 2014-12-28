@@ -1,0 +1,14 @@
+services:
+    sonata.admin.post:
+        class: Syloc\Bundle\GooglePlacesBundle\Admin\PlaceAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Google Places", label: "Place" }
+        arguments:
+            - ~
+            - Syloc\Bundle\GooglePlacesBundle\Entity\Place
+            - ~
+        calls:
+            - [ setTranslationDomain, [GooglePlacesBundle]]
+
+
+
