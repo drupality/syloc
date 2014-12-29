@@ -1,3 +1,0 @@
-syloc_fit_clubs_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: SylocFitClubsBundle:Default:index }

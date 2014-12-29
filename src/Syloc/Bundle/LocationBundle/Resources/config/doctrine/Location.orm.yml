@@ -1,6 +1,6 @@
-Syloc\Bundle\FitClubsBundle\Entity\Club:
+Syloc\Bundle\LocationBundle\Entity\Location:
     type: entity
-    table: club
+    table: location
     id:
         id:
             type: integer

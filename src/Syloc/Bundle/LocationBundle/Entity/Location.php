@@ -1,13 +1,13 @@
 <?php
 
-namespace Syloc\Bundle\FitClubsBundle\Entity;
+namespace Syloc\Bundle\LocationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Club
  */
-class Club
+class Location
 {
     /**
      * @var integer

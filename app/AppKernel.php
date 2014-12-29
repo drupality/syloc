@@ -38,7 +38,8 @@ class AppKernel extends Kernel
             // Then add SonataAdminBundle
             new Sonata\AdminBundle\SonataAdminBundle(),
             // ...,
-            new Syloc\Bundle\FitClubsBundle\SylocFitClubsBundle(),
+            new Syloc\Bundle\LocationBundle\SylocLocationBundle(),
+            new Syloc\Bundle\HomeBundle\SylocHomeBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

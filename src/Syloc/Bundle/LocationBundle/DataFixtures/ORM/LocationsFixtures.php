@@ -6,7 +6,7 @@
  * Time: 11:14
  */
 
-namespace Syloc\Bundle\FitClubsBundle\DataFixtures\ORM;
+namespace Syloc\Bundle\LocationBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -14,9 +14,9 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-use Syloc\Bundle\FitClubsBundle\Entity\Club;
+use Syloc\Bundle\LocationBundle\Entity\Location;
 
-class ClubsFixtures implements FixtureInterface, ContainerAwareInterface
+class LocationsFixtures implements FixtureInterface, ContainerAwareInterface
 {
     /**
      * @var ContainerInterface
@@ -39,7 +39,7 @@ class ClubsFixtures implements FixtureInterface, ContainerAwareInterface
         $places = $manager->getRepository('GooglePlacesBundle:Place')->findAll();
 
         foreach($places as $place) {
-            $club = new Club;
+            $club = new Location;
             $club->setName($place->getName());
             $club->setLat($place->getLat());
             $club->setLng($place->getLng());

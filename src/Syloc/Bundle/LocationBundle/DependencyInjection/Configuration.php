@@ -1,6 +1,6 @@
 <?php
 
-namespace Syloc\Bundle\FitClubsBundle\DependencyInjection;
+namespace Syloc\Bundle\LocationBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
