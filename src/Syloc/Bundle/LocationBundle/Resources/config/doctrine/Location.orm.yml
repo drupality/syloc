@@ -21,4 +21,15 @@ Syloc\Bundle\LocationBundle\Entity\Location:
             scale: 12
             precision: 18
             nullable: false
+        created:
+           type: datetime
+           gedmo:
+              timestampable:
+                 on: create
+        updated:
+           type: datetime
+           gedmo:
+              timestampable:
+                 on: update
+
     lifecycleCallbacks: {  }

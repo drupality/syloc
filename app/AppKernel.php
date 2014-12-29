@@ -15,6 +15,9 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Syloc\Bundle\GooglePlacesBundle\GooglePlacesBundle(),
 
@@ -40,6 +43,7 @@ class AppKernel extends Kernel
             // ...,
             new Syloc\Bundle\LocationBundle\SylocLocationBundle(),
             new Syloc\Bundle\HomeBundle\SylocHomeBundle(),
+
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
