@@ -8,15 +8,15 @@ use Syloc\Bundle\GooglePlacesBundle\Entity\PlaceType;
 
 class TextSearch {
 
-    private $em;
+    private $objectManager;
 
     private $searchQuery;
 
     private $resultMessage;
 
-    public function  __construct(ObjectManager $em, $searchQuery)
+    public function  __construct(ObjectManager $ob, $searchQuery)
     {
-        $this->em = $em;
+        $this->objectManager = $ob;
         $this->searchQuery = $searchQuery;
         return $this;
     }
@@ -86,7 +86,7 @@ class TextSearch {
 
     private function processResult($result)
     {
-        $typeRepository = $this->em->getRepository('GooglePlacesBundle:PlaceType');
+        $typeRepository = $this->objectManager->getRepository('GooglePlacesBundle:PlaceType');
 
         foreach($result->results as $googlePlace) {
 
@@ -102,16 +102,16 @@ class TextSearch {
                 if (! $placeType) {
                     $placeType = new PlaceType;
                     $placeType->setType($type);
-                    $this->em->persist($placeType);
+                    $this->objectManager->persist($placeType);
                 }
 
                 $place->addType($placeType);
             }
 
-            $this->em->persist($place);
+            $this->objectManager->persist($place);
 
         }
-        $this->em->flush();
+        $this->objectManager->flush();
     }
 
     public function getResultMessage()
