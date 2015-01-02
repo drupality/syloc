@@ -103,7 +103,6 @@ class TextSearch {
                     $placeType = new PlaceType;
                     $placeType->setType($type);
                     $this->em->persist($placeType);
-                    $this->em->flush();
                 }
 
                 $place->addType($placeType);
