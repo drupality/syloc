@@ -11,6 +11,9 @@ Syloc\Bundle\GooglePlacesBundle\Entity\Place:
     name:
       type: string
       nullable: false
+    formattedAddress:
+      type: string
+      nullable: false
     lat:
       type: decimal(18)
       scale: 12

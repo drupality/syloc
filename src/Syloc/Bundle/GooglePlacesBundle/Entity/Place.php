@@ -13,36 +13,26 @@ class Place
      * @var integer
      */
     private $id;
-
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
     /**
      * @var string
      */
     private $name;
-
     /**
      * @var string
      */
     private $lat;
-
     /**
      * @var string
      */
     private $lng;
-
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $types;
+    /**
+     * @var string
+     */
+    private $formattedAddress;
 
     /**
      * Constructor
@@ -50,6 +40,26 @@ class Place
     public function __construct()
     {
         $this->types = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -66,13 +76,13 @@ class Place
     }
 
     /**
-     * Get name
+     * Get lat
      *
-     * @return string 
+     * @return string
      */
-    public function getName()
+    public function getLat()
     {
-        return $this->name;
+        return $this->lat;
     }
 
     /**
@@ -89,13 +99,13 @@ class Place
     }
 
     /**
-     * Get lat
+     * Get lng
      *
-     * @return string 
+     * @return string
      */
-    public function getLat()
+    public function getLng()
     {
-        return $this->lat;
+        return $this->lng;
     }
 
     /**
@@ -109,16 +119,6 @@ class Place
         $this->lng = $lng;
 
         return $this;
-    }
-
-    /**
-     * Get lng
-     *
-     * @return string 
-     */
-    public function getLng()
-    {
-        return $this->lng;
     }
 
     /**
@@ -147,10 +147,33 @@ class Place
     /**
      * Get types
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTypes()
     {
         return $this->types;
+    }
+
+    /**
+     * Get formattedAddress
+     *
+     * @return string
+     */
+    public function getFormattedAddress()
+    {
+        return $this->formattedAddress;
+    }
+
+    /**
+     * Set formattedAddress
+     *
+     * @param string $formattedAddress
+     * @return Place
+     */
+    public function setFormattedAddress($formattedAddress)
+    {
+        $this->formattedAddress = $formattedAddress;
+
+        return $this;
     }
 }

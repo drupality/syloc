@@ -88,14 +88,15 @@ class TextSearch {
     {
         $typeRepository = $this->em->getRepository('GooglePlacesBundle:PlaceType');
 
-        foreach($result->results as $google_place) {
+        foreach($result->results as $googlePlace) {
 
             $place = new Place;
-            $place->setName($google_place->name);
-            $place->setLat($google_place->geometry->location->lat);
-            $place->setLng($google_place->geometry->location->lng);
+            $place->setName($googlePlace->name);
+            $place->setLat($googlePlace->geometry->location->lat);
+            $place->setLng($googlePlace->geometry->location->lng);
+            $place->setFormattedAddress($googlePlace->formatted_address);
 
-            foreach($google_place->types as $type) {
+            foreach($googlePlace->types as $type) {
                 $placeType = $typeRepository->findOneByType($type);
 
                 if (! $placeType) {
