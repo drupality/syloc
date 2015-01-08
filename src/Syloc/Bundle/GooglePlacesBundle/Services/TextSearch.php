@@ -1,37 +1,32 @@
 <?php
 
-namespace Syloc\Bundle\GooglePlacesBundle\Command;
+namespace Syloc\Bundle\GooglePlacesBundle\Services;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Exception;
 use Syloc\Bundle\GooglePlacesBundle\Entity\Place;
 use Syloc\Bundle\GooglePlacesBundle\Entity\PlaceType;
+use Symfony\Component\DependencyInjection\ContainerAware;
 
-class TextSearch {
-
-    private $objectManager;
-
-    private $searchQuery;
+class TextSearch extends ContainerAware
+{
 
     private $resultMessage;
 
-    public function  __construct(ObjectManager $ob, $searchQuery)
-    {
-        $this->objectManager = $ob;
-        $this->searchQuery = $searchQuery;
-        return $this;
-    }
-
-    public function search()
+    public function search($searchQuery)
     {
         $url = 'https://maps.googleapis.com/maps/api/place/textsearch/json';
         //TODO: extract key to config file
         $url .= '?' . http_build_query(
-                array('query' => $this->searchQuery, 'key' => 'AIzaSyBjrrUBPuovmv150yVmiacEsEAv9luWMMY')
+                array('query' => $searchQuery, 'key' => 'AIzaSyBjrrUBPuovmv150yVmiacEsEAv9luWMMY')
             );
 
         $result = $this->doRequest($url);
 
-        switch($result->status) {
+        if (! $result) {
+            throw new Exception('Search request failed');
+        }
+
+        switch ($result->status) {
             case 'OK':
 
                 $this->resultMessage = 'Found results. Processing..';
@@ -56,6 +51,7 @@ class TextSearch {
                 return;
 
         }
+
 
     }
 
@@ -86,9 +82,10 @@ class TextSearch {
 
     private function processResult($result)
     {
-        $typeRepository = $this->objectManager->getRepository('GooglePlacesBundle:PlaceType');
+        $om = $this->container->get('doctrine')->getManager();
+        $typeRepository = $om->getRepository('GooglePlacesBundle:PlaceType');
 
-        foreach($result->results as $googlePlace) {
+        foreach ($result->results as $googlePlace) {
 
             $place = new Place;
             $place->setName($googlePlace->name);
@@ -96,22 +93,28 @@ class TextSearch {
             $place->setLng($googlePlace->geometry->location->lng);
             $place->setFormattedAddress($googlePlace->formatted_address);
 
-            foreach($googlePlace->types as $type) {
+            foreach ($googlePlace->types as $type) {
                 $placeType = $typeRepository->findOneByType($type);
 
-                if (! $placeType) {
+                if (!$placeType) {
                     $placeType = new PlaceType;
                     $placeType->setType($type);
-                    $this->objectManager->persist($placeType);
+                    $om->persist($placeType);
                 }
 
                 $place->addType($placeType);
             }
 
-            $this->objectManager->persist($place);
+            if (isset($googlePlace->photos)) {
+                //TODO:  photos download here
+            }
+
+
+
+            //$om->persist($place);
 
         }
-        $this->objectManager->flush();
+        //$om->flush();
     }
 
     public function getResultMessage()

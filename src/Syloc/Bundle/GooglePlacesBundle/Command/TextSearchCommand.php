@@ -2,6 +2,7 @@
 
 namespace Syloc\Bundle\GooglePlacesBundle\Command;
 
+use Syloc\Bundle\GooglePlacesBundle\Services\TextSearch;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -13,8 +14,6 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class TextSearchCommand extends ContainerAwareCommand
 {
-
-
     protected function configure()
     {
         $this
@@ -25,14 +24,11 @@ class TextSearchCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $textSearch =
-            new TextSearch($this->getContainer()->get('doctrine')->getManager(), $input->getArgument('query'));
+        $textSearch = $this->getContainer()->get('google_places.textsearch');
 
-        $textSearch->search();
+        $textSearch->search($input->getArgument('query'));
 
         $output->writeln($textSearch->getResultMessage());
-
-        return;
 
     }
 }

@@ -1,4 +1,8 @@
 services:
+  google_places.textsearch:
+    class: Syloc\Bundle\GooglePlacesBundle\Services\TextSearch
+    calls:
+        - [ setContainer,[ @service_container ] ]
 #    google_places.example:
 #        class: Syloc\Bundle\GooglePlacesBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
