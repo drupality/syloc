@@ -18,7 +18,11 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('google_places');
+
+        $rootNode = $treeBuilder->root('google_places')->children()
+            ->variableNode('google_maps_api_key')
+            ->isRequired()
+            ->end();
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for

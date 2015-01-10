@@ -15,16 +15,16 @@ class TextSearch extends ContainerAware
     public function search($searchQuery)
     {
         $url = 'https://maps.googleapis.com/maps/api/place/textsearch/json';
-        //TODO: extract key to config file
-        $url .= '?' . http_build_query(
-                array('query' => $searchQuery, 'key' => 'AIzaSyBjrrUBPuovmv150yVmiacEsEAv9luWMMY')
-            );
 
-        $result = $this->doRequest($url);
+        $queryParams = array('query' => $searchQuery);
+
+        $result = $this->doRequest($url, $queryParams);
 
         if (! $result) {
             throw new Exception('Search request failed');
         }
+
+        $result = json_decode($result);
 
         switch ($result->status) {
             case 'OK':
@@ -55,8 +55,16 @@ class TextSearch extends ContainerAware
 
     }
 
-    private function doRequest($url)
+    private function doRequest($url, $queryParams = array())
     {
+
+        if (! empty($queryParams)) {
+
+            $queryParams += array('key' => $this->container->getParameter('google_maps_api_key'));
+
+            $url .= '?' . http_build_query($queryParams);
+        }
+
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -76,7 +84,7 @@ class TextSearch extends ContainerAware
             return false;
         }
 
-        return json_decode($data);
+        return $data;
 
     }
 
@@ -115,6 +123,20 @@ class TextSearch extends ContainerAware
 
         }
         //$om->flush();
+    }
+
+    private function downloadPhoto($photo)
+    {
+        $url = 'https://maps.googleapis.com/maps/api/place/photo';
+
+        $queryParams = array(
+            'maxwidth' => $photo->witdth,
+            'maxheight' => $photo->height,
+            'photoreference' => $photo->photo_reference,
+        );
+
+
+
     }
 
     public function getResultMessage()
