@@ -85,3 +85,6 @@ stof_doctrine_extensions:
     orm:
         default:
             timestampable: true
+
+google_places:
+    google_maps_api_key: AIzaSyBjrrUBPuovmv150yVmiacEsEAv9luWMMY
